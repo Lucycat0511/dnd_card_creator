@@ -1,3 +1,17 @@
+import { useEffect, useState } from "react";
+import getSpell from "./api/dataAPI";
+import SpellCard from "./components/SpellCard";
+
 export default function Home() {
-  return <h1 className="text-[#7774cf]">Home</h1>;
+  const [spellData, setSpellData] = useState({});
+  useEffect(() => {
+    getSpell().then((data) => {
+      setSpellData(data);
+    });
+  }, []);
+  return (
+    <div>
+      <SpellCard data={spellData} />
+    </div>
+  );
 }

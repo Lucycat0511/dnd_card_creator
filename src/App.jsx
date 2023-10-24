@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 export default function App() {
   return (
     <>
-      <header></header>
+      <header className=" my-4">DnD Card Creator</header>
       <main>
         <Outlet />
       </main>
