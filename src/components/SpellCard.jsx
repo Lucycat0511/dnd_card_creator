@@ -1,4 +1,4 @@
-export default function SpellCard({ data }) {
+export default function SpellCard({ data, handleDelete }) {
   const {
     name,
     casting_time,
@@ -18,7 +18,17 @@ export default function SpellCard({ data }) {
     damage_at_slot_level = damage.damage_at_slot_level;
   }
   return (
-    <div className="border-2 border-black p-2 text-xs flex flex-col gap-2">
+    <div className="group border-2 border-black p-2 text-xs flex relative flex-col gap-2">
+      <button
+        onClick={() => {
+          handleDelete();
+        }}
+        className="hidden group-hover:block
+      absolute top-1 right-1
+      p-2 btn-accent rounded-full w-8"
+      >
+        <i className="fa-solid fa-xmark"></i>
+      </button>
       <div className="flex">
         <h2 className="text-xl font-bold">{name}</h2>
         <div className="ml-auto flex flex-col">
@@ -30,25 +40,25 @@ export default function SpellCard({ data }) {
       </div>
       <div className="border-2 border-black rounded-md">
         <div className="flex px-1 py-[0.1rem] gap-2">
-          <h4>Casting Time</h4>
+          <i className="fa-regular fa-clock"></i>
           <p>{casting_time}</p>
         </div>
         <hr className="border-black" />
         <div className="flex px-1 py-[0.1rem] gap-2">
-          <h4>Range</h4>
+          <i className="fa-solid fa-share"></i>
           <p>{range}</p>
         </div>
         <hr className="border-black" />
         <div className="flex px-1 py-[0.1rem] gap-2">
-          <h4>Components</h4>
+          <i className="fa-solid fa-tag"></i>
           <p>
-            {components}{" "}
+            {components}
             <span className="text-xs">{material && `(${material})`}</span>
           </p>
         </div>
         <hr className="border-black" />
         <div className="flex px-1 py-[0.1rem] gap-2">
-          <h4>Duration</h4>
+          <i className="fa-solid fa-hourglass-half"></i>
           <p>{duration}</p>
         </div>
       </div>
