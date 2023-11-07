@@ -3,16 +3,16 @@ import { useContext, useState } from "react";
 import { SpellCardContext } from "../hooks/SpellCardProvider";
 
 export default function SubmissionForm() {
-  const spellList = ["burning hands", "acid arrow", "ac", "bu", "bur"];
-  const { setSubmission } = useContext(SpellCardContext);
-  const [query, setQuery] = useState({ name: "", list: [] });
+  const { setSubmission, spellList, query, setQuery } =
+    useContext(SpellCardContext);
+
   function handleChange(e) {
     const value = e.target.value;
     const results = spellList.filter((spell) => {
       if (value === "") return "";
-      return spell.toLowerCase().includes(value.toLowerCase());
+      return spell.name.toLowerCase().includes(value.toLowerCase());
     });
-    setQuery({ query: value, list: results });
+    setQuery({ name: value, list: results });
   }
 
   return (
@@ -33,14 +33,20 @@ export default function SubmissionForm() {
           value={query.name}
           onChange={handleChange}
         ></input>
-
-        <button className="btn btn-secondary px-4 py-2 rounded-md h-fit self-end">
-          Add
-        </button>
       </div>
-      <div>
+      <div className="menu border rounded-md">
         {query.list.map((item, index) => {
-          return <li key={index}>{item}</li>;
+          return (
+            <li
+              key={index}
+              onClick={(e) => {
+                let kebab_spell = _.kebabCase(item.name);
+                setSubmission(kebab_spell);
+              }}
+            >
+              <span>{item.name}</span>
+            </li>
+          );
         })}
       </div>
     </form>

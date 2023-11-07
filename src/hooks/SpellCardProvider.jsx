@@ -1,12 +1,21 @@
 import { useEffect, useState, createContext } from "react";
-import getSpell from "../api/dataAPI";
+import { getSpellList, getSpell } from "../api/dataAPI";
 
 export const SpellCardContext = createContext("");
 
 export default function SpellCardProvider({ children }) {
   const [spellData, setSpellData] = useState([]);
   const [submission, setSubmission] = useState("");
+  const [spellList, setSpellList] = useState([]);
+  const [query, setQuery] = useState({ name: "", list: [] });
+
   useEffect(() => {
+    if (spellList.length === 0) {
+      getSpellList().then((data) => {
+        setSpellList(data);
+      });
+    }
+
     if (submission != "") {
       getSpell(submission).then((data) => {
         setSpellData((prev) => {
@@ -29,7 +38,15 @@ export default function SpellCardProvider({ children }) {
   return (
     <div>
       <SpellCardContext.Provider
-        value={{ spellData, setSpellData, setSubmission, handleDelete }}
+        value={{
+          spellData,
+          setSpellData,
+          setSubmission,
+          handleDelete,
+          spellList,
+          query,
+          setQuery,
+        }}
       >
         {children}
       </SpellCardContext.Provider>
