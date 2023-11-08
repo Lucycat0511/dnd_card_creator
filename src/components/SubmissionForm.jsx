@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { SpellCardContext } from "../hooks/SpellCardProvider";
 
 export default function SubmissionForm() {
@@ -24,30 +24,32 @@ export default function SubmissionForm() {
         setSubmission(kebab_spell);
       }}
     >
-      <div className="flex gap-1">
+      <div className="flex flex-col gap-2">
         <input
           type="search"
           id="spell_name"
-          className="input input-bordered border rounded-md"
+          className="input input-bordered border rounded-md w-full"
           placeholder="Spell Name"
           value={query.name}
           onChange={handleChange}
         ></input>
-      </div>
-      <div className="menu border rounded-md">
-        {query.list.map((item, index) => {
-          return (
-            <li
-              key={index}
-              onClick={(e) => {
-                let kebab_spell = _.kebabCase(item.name);
-                setSubmission(kebab_spell);
-              }}
-            >
-              <span>{item.name}</span>
-            </li>
-          );
-        })}
+        <div className="h-56 overflow-clip border rounded-md">
+          <div className="menu">
+            {query.list.map((item, index) => {
+              return (
+                <li
+                  key={index}
+                  onClick={(e) => {
+                    let kebab_spell = _.kebabCase(item.name);
+                    setSubmission(kebab_spell);
+                  }}
+                >
+                  <span>{item.name}</span>
+                </li>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </form>
   );

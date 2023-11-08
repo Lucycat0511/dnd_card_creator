@@ -14,8 +14,12 @@ export default function SpellCard({ data, handleDelete }) {
     damage,
   } = data;
   let damage_at_slot_level;
+  let damage_at_character_level;
+  let damage_type;
   if (damage) {
     damage_at_slot_level = damage.damage_at_slot_level;
+    damage_at_character_level = damage.damage_at_character_level;
+    damage_type = damage.damage_type;
   }
   return (
     <div className="group border-2 border-black p-2 text-xs flex relative flex-col gap-2">
@@ -23,9 +27,9 @@ export default function SpellCard({ data, handleDelete }) {
         onClick={() => {
           handleDelete();
         }}
-        className="hidden group-hover:block
+        className="btn hidden group-hover:block
       absolute top-1 right-1
-      p-2 btn-accent rounded-full w-8"
+      p-2 btn-accent rounded-full btn-circle"
       >
         <i className="fa-solid fa-xmark"></i>
       </button>
@@ -64,16 +68,35 @@ export default function SpellCard({ data, handleDelete }) {
       </div>
       <p>{desc}</p>
       <div className="mt-auto">
-        {higher_level != "" && (
+        {(higher_level[0] || damage_at_character_level) && (
           <>
             <h4 className="font-semibold">At Higher Levels</h4>
-            <p>{higher_level}</p>
+            <p>{higher_level[0]}</p>
           </>
         )}
         {damage && (
           <div className="flex border border-black w-fit">
             {damage_at_slot_level &&
               Object.entries(damage_at_slot_level).map(
+                ([key, index], ind, origin) => {
+                  return (
+                    <div
+                      key={key + index}
+                      className={
+                        ind != origin.length - 1 ? "border-r border-black" : ""
+                      }
+                    >
+                      <p className="text-center">{key}</p>
+                      <hr className="border-black" />
+                      <p className="px-[0.35rem] text-center font-semibold">
+                        {index}
+                      </p>
+                    </div>
+                  );
+                }
+              )}
+            {damage_at_character_level &&
+              Object.entries(damage_at_character_level).map(
                 ([key, index], ind, origin) => {
                   return (
                     <div

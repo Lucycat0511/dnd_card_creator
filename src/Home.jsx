@@ -6,6 +6,7 @@ export default function Home() {
     <div className="flex flex-col gap-4 items-center">
       <div className="lg:hidden">
         <SubmissionForm />
+        <button className="btn btn-primary">Save Collection</button>
       </div>
       <SpellCardContainer />
     </div>

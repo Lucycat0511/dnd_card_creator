@@ -4,8 +4,9 @@ import { getSpellList, getSpell } from "../api/dataAPI";
 export const SpellCardContext = createContext("");
 
 export default function SpellCardProvider({ children }) {
-  const [spellData, setSpellData] = useState([]);
+  const [spellCardList, setSpellCardList] = useState([]);
   const [submission, setSubmission] = useState("");
+
   const [spellList, setSpellList] = useState([]);
   const [query, setQuery] = useState({ name: "", list: [] });
 
@@ -18,7 +19,7 @@ export default function SpellCardProvider({ children }) {
 
     if (submission != "") {
       getSpell(submission).then((data) => {
-        setSpellData((prev) => {
+        setSpellCardList((prev) => {
           return [...prev, data];
         });
         setSubmission("");
@@ -27,29 +28,27 @@ export default function SpellCardProvider({ children }) {
   }, [submission]);
 
   function handleDelete(target) {
-    let filteredSpellList = spellData.filter((spell, index) => {
+    let filteredSpellList = spellCardList.filter((spell, index) => {
       if (index !== target) {
         return spell;
       }
     });
-    setSpellData(filteredSpellList);
+    setSpellCardList(filteredSpellList);
   }
 
   return (
-    <div>
-      <SpellCardContext.Provider
-        value={{
-          spellData,
-          setSpellData,
-          setSubmission,
-          handleDelete,
-          spellList,
-          query,
-          setQuery,
-        }}
-      >
-        {children}
-      </SpellCardContext.Provider>
-    </div>
+    <SpellCardContext.Provider
+      value={{
+        spellCardList,
+        setSpellCardList,
+        setSubmission,
+        handleDelete,
+        spellList,
+        query,
+        setQuery,
+      }}
+    >
+      {children}
+    </SpellCardContext.Provider>
   );
 }
