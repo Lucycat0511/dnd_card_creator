@@ -10,3 +10,7 @@
   - [x] filter through spells
   - [] add specific spells to collection
 - [x] add damage-at-character-level section
+
+- [] collection saving
+- [] collection loading
+- [] starting a new collection and auto saving to "untitled collection" as default ?????? ,maybe

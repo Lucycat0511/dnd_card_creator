@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { SpellCardContext } from "../hooks/SpellCardProvider";
 import SpellCard from "./SpellCard";
+import { CollectionContext } from "../hooks/CollectionProvider";
 
 export default function SpellCardContainer() {
-  const { spellCardList, handleDelete } = useContext(SpellCardContext);
+  const { collections, handleDelete } = useContext(CollectionContext);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-4">
-      {spellCardList.map((spell, index) => {
+      {collections.current.data.map((spell, index) => {
         return (
           <SpellCard
             key={index}

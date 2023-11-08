@@ -1,10 +1,10 @@
 import _ from "lodash";
 import { useContext } from "react";
-import { SpellCardContext } from "../hooks/SpellCardProvider";
+import { CollectionContext } from "../hooks/CollectionProvider";
 
 export default function SubmissionForm() {
   const { setSubmission, spellList, query, setQuery } =
-    useContext(SpellCardContext);
+    useContext(CollectionContext);
 
   function handleChange(e) {
     const value = e.target.value;
@@ -39,7 +39,7 @@ export default function SubmissionForm() {
               return (
                 <li
                   key={index}
-                  onClick={(e) => {
+                  onClick={() => {
                     let kebab_spell = _.kebabCase(item.name);
                     setSubmission(kebab_spell);
                   }}
