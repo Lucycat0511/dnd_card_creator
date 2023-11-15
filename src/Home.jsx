@@ -1,15 +1,9 @@
-import CollectionMenu from "./components/CollectionMenu";
-import SpellCardContainer from "./components/SpellCardContainer";
-import SubmissionForm from "./components/SubmissionForm";
+import CollectionContainer from "./components/CollectionContainer";
 
 export default function Home() {
   return (
     <div className="flex flex-col gap-4 items-center">
-      <div className="lg:hidden flex gap-8">
-        <SubmissionForm />
-        <CollectionMenu />
-      </div>
-      <SpellCardContainer />
+      <CollectionContainer />
     </div>
   );
 }

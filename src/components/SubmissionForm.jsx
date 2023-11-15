@@ -7,7 +7,7 @@ export default function SubmissionForm() {
     useContext(CollectionContext);
 
   function handleChange(e) {
-    const value = e.target.value;
+    const value = e.target.value == null ? "" : e.target.value;
     const results = spellList.filter((spell) => {
       if (value === "") return "";
       return spell.name.toLowerCase().includes(value.toLowerCase());
@@ -33,8 +33,8 @@ export default function SubmissionForm() {
           value={query.name}
           onChange={handleChange}
         ></input>
-        <div className="h-56 overflow-clip border rounded-md">
-          <div className="menu">
+        <div className="h-56 border rounded-md overflow-y-scroll overflow-x-clip">
+          <div className="menu ">
             {query.list.map((item, index) => {
               return (
                 <li

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { CollectionContext } from "../hooks/CollectionProvider";
+import { getCollectionData, writeCollectionData } from "../api/firebaseAPI";
 
 export default function CollectionMenu() {
   const { collections, setCurrentCollection, addCollection } =
@@ -12,22 +13,31 @@ export default function CollectionMenu() {
           addCollection();
         }}
       >
+        New Collection
+      </button>
+      <button
+        className="btn btn-primary"
+        onClick={() => {
+          addCollection();
+        }}
+      >
         Save Collection
       </button>
-      <div className="h-56 border rounded-md">
+      <div className="h-full w-full border rounded-md overflow-y-scroll overflow-x-clip">
         <div className="menu">
-          {collections.array.map((collection, index) => {
-            return (
-              <li
-                key={index}
-                onClick={() => {
-                  setCurrentCollection(index);
-                }}
-              >
-                <span>{collection.name}</span>
-              </li>
-            );
-          })}
+          {collections.current &&
+            collections.array.map((collection, index) => {
+              return (
+                <li
+                  key={collection.key}
+                  onClick={() => {
+                    setCurrentCollection(collection.key);
+                  }}
+                >
+                  <span>{collection.name}</span>
+                </li>
+              );
+            })}
         </div>
       </div>
     </div>

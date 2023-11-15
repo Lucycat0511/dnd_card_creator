@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import SubmissionForm from "./components/SubmissionForm";
 import CollectionProvider from "./hooks/CollectionProvider";
+import CollectionMenu from "./components/CollectionMenu";
 
 export default function App() {
   return (
@@ -38,6 +39,7 @@ export default function App() {
             <h1 className="text-xl font-semibold">DnD Card Creator</h1>
             <div className="px-2 flex flex-col gap-2">
               <SubmissionForm />
+              <CollectionMenu />
             </div>
           </div>
         </div>

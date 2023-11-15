@@ -5,8 +5,18 @@ export async function getSpell(submission) {
       return json;
     })
     .catch((error) => console.log(error));
-  console.log(item);
   return item;
+}
+
+export async function getSpells(array) {
+  const spells = await Promise.all(
+    array.map(async (spell) => {
+      const item = await getSpell(spell);
+      return item;
+    })
+  );
+
+  return spells;
 }
 
 export async function getSpellList() {
