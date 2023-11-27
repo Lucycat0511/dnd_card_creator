@@ -29,6 +29,8 @@ export default function App() {
                 togglePrintMode(!printMode);
                 setTimeout(() => {
                   window.print();
+                }, 1000);
+                setTimeout(() => {
                   togglePrintMode(false);
                 }, 1000);
               }}

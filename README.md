@@ -4,8 +4,7 @@
 
 - [x] add icons
 - [x] sidebar drawer scroll with list of spells from A-Z
-- [] collections for printing
-- [] mass entry
+- [x] collections for printing
 - [x] list all spells
   - [x] connect search to spell name array from API database
   - [x] search for spells

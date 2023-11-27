@@ -70,7 +70,7 @@ export default function SpellCard({ data, print, handleDelete }) {
       </div>
       <p>{desc}</p>
       <div className="mt-auto">
-        {(higher_level || damage_at_character_level) && (
+        {(higher_level || damage_at_character_level) && higher_level[0] && (
           <>
             <h4 className="font-semibold">At Higher Levels</h4>
             <p>{higher_level && higher_level[0]}</p>
