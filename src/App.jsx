@@ -2,11 +2,17 @@ import { Outlet } from "react-router-dom";
 import SubmissionForm from "./components/SubmissionForm";
 import CollectionProvider from "./hooks/CollectionProvider";
 import CollectionMenu from "./components/CollectionMenu";
+import { useState } from "react";
+import SpellCardContainer from "./components/SpellCardContainer";
 
 export default function App() {
+  const [printMode, togglePrintMode] = useState(false);
   return (
     <CollectionProvider>
-      <div className="drawer lg:drawer-open">
+      <div className={`${printMode ? "" : "hidden"}`}>
+        <SpellCardContainer print={true} />
+      </div>
+      <div className={`${printMode ? "hidden" : "drawer lg:drawer-open"}`}>
         <input id="drawer" type="checkbox" className="drawer-toggle"></input>
         <div className="drawer-content">
           {/* Page Content */}
@@ -17,6 +23,18 @@ export default function App() {
             <h1 className="text-xl text-center font-semibold lg:hidden">
               DnD Card Creator
             </h1>
+            <button
+              className="ml-auto btn btn-outline"
+              onClick={() => {
+                togglePrintMode(!printMode);
+                setTimeout(() => {
+                  window.print();
+                  togglePrintMode(false);
+                }, 1000);
+              }}
+            >
+              <i class="fa-solid fa-print"></i>
+            </button>
           </header>
           <main className="px-2">
             <Outlet />

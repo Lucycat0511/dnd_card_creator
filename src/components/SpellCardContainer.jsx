@@ -2,11 +2,15 @@ import { useContext } from "react";
 import SpellCard from "./SpellCard";
 import { CollectionContext } from "../hooks/CollectionProvider";
 
-export default function SpellCardContainer() {
+export default function SpellCardContainer({ print }) {
   const { collections, handleDelete } = useContext(CollectionContext);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-4">
+    <div
+      id="print-content"
+      className={`grid grid-cols-1 print:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-4
+    ${print && "gap-0"}`}
+    >
       {collections.current &&
         typeof collections.current.data[0] !== typeof "" &&
         collections.current.data.map((spell, index) => {
@@ -14,6 +18,7 @@ export default function SpellCardContainer() {
             <SpellCard
               key={index}
               data={spell}
+              print={print}
               handleDelete={() => {
                 handleDelete(index);
               }}

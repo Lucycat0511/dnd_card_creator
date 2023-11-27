@@ -53,7 +53,9 @@ export default function CollectionContainer() {
         <SubmissionForm />
         <CollectionMenu />
       </div>
-      <SpellCardContainer />
+      <div id="print-content">
+        <SpellCardContainer />
+      </div>
     </>
   );
 }

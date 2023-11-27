@@ -1,4 +1,4 @@
-export default function SpellCard({ data, handleDelete }) {
+export default function SpellCard({ data, print, handleDelete }) {
   const {
     name,
     casting_time,
@@ -27,9 +27,11 @@ export default function SpellCard({ data, handleDelete }) {
         onClick={() => {
           handleDelete();
         }}
-        className="btn hidden group-hover:block
+        className={`btn 
       absolute top-1 right-1
-      p-2 btn-accent btn-circle"
+      p-2 btn-accent btn-circle ${
+        print ? "hidden" : "hidden group-hover:block"
+      }`}
       >
         <i className="fa-solid fa-xmark"></i>
       </button>

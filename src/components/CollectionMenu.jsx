@@ -27,7 +27,7 @@ export default function CollectionMenu() {
                   }}
                   className="relative group"
                 >
-                  <span>{collection.name}</span>
+                  <span className="uppercase">{collection.name}</span>
                   <button
                     className="group-hover:flex hidden btn btn-accent btn-xs btn-circle absolute right-1 top-1.5 content-center"
                     onClick={() => {

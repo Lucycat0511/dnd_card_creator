@@ -15,11 +15,10 @@
 
 - [x] collection saving
 - [x] new collection
-- [] remove collection
-- [] collection updating - (update on addition of spell, subtraction of spell, change of name, removal of collection)
+- [x] collection updating - (update on addition of spell, subtraction of spell, change of name, removal of collection)
   - [x] name
   - [x] data
-- [] delete collection
+- [x] delete collection
 - [x] collection loading
 - [x] starting a new collection and auto saving to "untitled collection" as default
 - [x] store collections in firebase
