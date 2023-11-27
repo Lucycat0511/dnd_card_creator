@@ -3,27 +3,19 @@ import { CollectionContext } from "../hooks/CollectionProvider";
 import { getCollectionData, writeCollectionData } from "../api/firebaseAPI";
 
 export default function CollectionMenu() {
-  const { collections, setCurrentCollection, addCollection } =
+  const { collections, setCurrentCollection, deleteCollection, newCollection } =
     useContext(CollectionContext);
   return (
     <div className="flex flex-col gap-2">
       <button
         className="btn btn-primary"
         onClick={() => {
-          addCollection();
+          newCollection();
         }}
       >
         New Collection
       </button>
-      <button
-        className="btn btn-primary"
-        onClick={() => {
-          addCollection();
-        }}
-      >
-        Save Collection
-      </button>
-      <div className="h-full w-full border rounded-md overflow-y-scroll overflow-x-clip">
+      <div className="h-56 w-full border rounded-md overflow-y-scroll overflow-x-clip">
         <div className="menu">
           {collections.current &&
             collections.array.map((collection, index) => {
@@ -33,8 +25,17 @@ export default function CollectionMenu() {
                   onClick={() => {
                     setCurrentCollection(collection.key);
                   }}
+                  className="relative group"
                 >
                   <span>{collection.name}</span>
+                  <button
+                    className="group-hover:flex hidden btn btn-accent btn-xs btn-circle absolute right-1 top-1.5 content-center"
+                    onClick={() => {
+                      deleteCollection(collection.key);
+                    }}
+                  >
+                    <i className="fa-solid fa-xmark"></i>
+                  </button>
                 </li>
               );
             })}

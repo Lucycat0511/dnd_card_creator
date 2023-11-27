@@ -29,7 +29,7 @@ export default function SpellCard({ data, handleDelete }) {
         }}
         className="btn hidden group-hover:block
       absolute top-1 right-1
-      p-2 btn-accent rounded-full btn-circle"
+      p-2 btn-accent btn-circle"
       >
         <i className="fa-solid fa-xmark"></i>
       </button>

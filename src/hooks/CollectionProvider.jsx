@@ -1,11 +1,13 @@
 import { createContext, useEffect, useState } from "react";
 import { getSpell, getSpellList } from "../api/dataAPI";
 import {
+  deleteCollectionData,
   getCollectionData,
   getCollections,
+  updateCollectionData,
+  updateCollectionName,
   writeCollectionData,
 } from "../api/firebaseAPI";
-import { collection } from "@firebase/firestore";
 
 export const CollectionContext = createContext("");
 
@@ -17,11 +19,12 @@ export default function CollectionProvider({ children }) {
   const [submission, setSubmission] = useState("");
   const [query, setQuery] = useState({ name: "", list: [] });
 
+  const [editable, setEditableName] = useState(false);
+
   useEffect(() => {
     //set initial collection data
     if (!collections.current && !collections.array) {
       getCollections().then((data) => {
-        console.log(data);
         setCollections((prev) => {
           return { current: data[0], array: data };
         });
@@ -72,6 +75,10 @@ export default function CollectionProvider({ children }) {
       else {
         getSpell(submission).then((data) => {
           setCollections((prev) => {
+            updateCollectionData(prev.current.key, [
+              ...prev.current.data,
+              data,
+            ]);
             return {
               current: {
                 key: prev.current.key,
@@ -96,6 +103,16 @@ export default function CollectionProvider({ children }) {
     }
   }, [submission, collections]);
 
+  function changeName() {
+    updateCollectionName(collections.current.key, collections.current.name);
+    //repopulate the array
+    getCollections().then((data) => {
+      setCollections((prev) => {
+        return { current: prev.current, array: data };
+      });
+    });
+  }
+
   function handleCurrentNameChange(e) {
     const newName = e.target.value;
     setCollections((prev) => {
@@ -113,6 +130,8 @@ export default function CollectionProvider({ children }) {
       }
     });
     setCollections((prev) => {
+      console.log(prev.current.key);
+      updateCollectionData(prev.current.key, filteredSpellList);
       return {
         current: {
           key: prev.current.key,
@@ -131,34 +150,57 @@ export default function CollectionProvider({ children }) {
     });
   }
 
-  function addCollection() {
-    //assign proper key
-    //prompt for name
-    //handle name perameters
-    //
-    // const collection = { key: 0, name: "", data: [] };
+  function deleteCollection(key) {
+    deleteCollectionData(key);
+    getCollections().then((data) => {
+      setCollections((prev) => {
+        return { current: data[0], array: data };
+      });
+    });
+  }
 
-    // setCollections((prev) => {
-    //   return { current: collection, array: [...prev.array, collection] };
-    // });
-    writeCollectionData();
+  function newCollection() {
+    //write collection with name 'untitled'
+    // with empty array
+    writeCollectionData([], "untitled").then((key) => {
+      //then set new array
+      getCollections().then((data) => {
+        const new_collection = data.filter((item, index, array) => {
+          return item.key == key && item;
+        });
+        setCollections((prev) => {
+          return { current: new_collection[0], array: data };
+        });
+      });
+    });
   }
 
   function setCurrentCollection(key) {
-    getCollectionData(key);
+    getCollectionData(key).then((info) => {
+      setCollections((prev) => {
+        return {
+          current: { key: key, name: info.name, data: info.data },
+          array: prev.array,
+        };
+      });
+    });
   }
   return (
     <CollectionContext.Provider
       value={{
         collections,
         setCurrentCollection,
-        addCollection,
         setSubmission,
         handleDelete,
         spellList,
         query,
         setQuery,
         handleCurrentNameChange,
+        editable,
+        setEditableName,
+        changeName,
+        newCollection,
+        deleteCollection,
       }}
     >
       {children}

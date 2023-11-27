@@ -10,12 +10,16 @@
   - [x] connect search to spell name array from API database
   - [x] search for spells
   - [x] filter through spells
-  - [] add specific spells to collection
+  - [x] add specific spells to collection
 - [x] add damage-at-character-level section
 
-- [] collection saving
-- [] new collection
-- [] collection updating
+- [x] collection saving
+- [x] new collection
+- [] remove collection
+- [] collection updating - (update on addition of spell, subtraction of spell, change of name, removal of collection)
+  - [x] name
+  - [x] data
+- [] delete collection
 - [x] collection loading
-- [] starting a new collection and auto saving to "untitled collection" as default ?????? ,maybe
+- [x] starting a new collection and auto saving to "untitled collection" as default
 - [x] store collections in firebase
