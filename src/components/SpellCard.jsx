@@ -72,7 +72,18 @@ export default function SpellCard({ data, handleDelete }) {
       </div>
       {/* Description */}
       <div
-        className={`${desc.join().length > 300 ? `text-[0.6rem] ` : "text-xs"}`}
+        className={`text-xs ${
+          (desc.join().length > 700 &&
+            `print:text-[0.4rem] print:leading-tight`) ||
+          (desc.join().length > 600 &&
+            `print:text-[0.45rem] print:leading-tight`) ||
+          (desc.join().length > 450 &&
+            `print:text-[0.5rem] print:leading-tight`) ||
+          (desc.join().length > 400 &&
+            `print:text-[0.55rem] print:leading-tight`) ||
+          (desc.join().length > 350 &&
+            `print:text-[0.6rem] print:leading-tight`)
+        }`}
       >
         <p className="">{desc}</p>
       </div>
@@ -85,7 +96,7 @@ export default function SpellCard({ data, handleDelete }) {
           </>
         )}
         {damage && (
-          <div className="flex border border-black w-fit text-[0.5rem] print:text-[0.50rem]">
+          <div className="flex border border-black w-fit text-[0.5rem] ">
             {damage_at_slot_level &&
               Object.entries(damage_at_slot_level).map(
                 ([key, index], ind, origin) => {
@@ -98,7 +109,7 @@ export default function SpellCard({ data, handleDelete }) {
                     >
                       <p className="text-center leading-snug">{key}</p>
                       <hr className="border-black" />
-                      <p className="px-[0.35rem] print:px-[0.2rem] text-center font-semibold">
+                      <p className="px-[0.2rem] text-center font-semibold">
                         {index}
                       </p>
                     </div>
