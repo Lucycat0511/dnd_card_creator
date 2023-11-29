@@ -151,10 +151,11 @@ export default function CollectionProvider({ children }) {
   }
 
   function deleteCollection(key) {
-    deleteCollectionData(key);
-    getCollections().then((data) => {
-      setCollections((prev) => {
-        return { current: data[0], array: data };
+    deleteCollectionData(key).then(() => {
+      getCollections().then((data) => {
+        setCollections((prev) => {
+          return { current: data[0], array: data };
+        });
       });
     });
   }

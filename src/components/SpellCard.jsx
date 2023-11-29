@@ -1,4 +1,4 @@
-export default function SpellCard({ data, print, handleDelete }) {
+export default function SpellCard({ data, handleDelete }) {
   const {
     name,
     casting_time,
@@ -22,28 +22,30 @@ export default function SpellCard({ data, print, handleDelete }) {
     damage_type = damage.damage_type;
   }
   return (
-    <div className="group border-2 border-black p-2 text-xs flex relative flex-col gap-2">
+    <div className="group border-2 border-black p-2 text-xs flex relative flex-col gap-2 print:h-[33vh]">
       <button
         onClick={() => {
           handleDelete();
         }}
-        className={`btn 
+        className={`btn
       absolute top-1 right-1
-      p-2 btn-accent btn-circle ${
-        print ? "hidden" : "hidden group-hover:block"
-      }`}
+      p-2 btn-accent btn-circle
+      hidden group-hover:block
+      `}
       >
         <i className="fa-solid fa-xmark"></i>
       </button>
+      {/* Heading */}
       <div className="flex">
-        <h2 className="text-xl font-bold">{name}</h2>
+        <h2 className="text-xl font-bold flex-1 w-fit">{name}</h2>
         <div className="ml-auto flex flex-col">
           <p>
-            Level {level} {index}
+            {level} {index}
           </p>
           <p>{concentration}</p>
         </div>
       </div>
+      {/* Specs */}
       <div className="border-2 border-black rounded-md">
         <div className="flex px-1 py-[0.1rem] gap-2">
           <i className="fa-regular fa-clock"></i>
@@ -68,16 +70,22 @@ export default function SpellCard({ data, print, handleDelete }) {
           <p>{duration}</p>
         </div>
       </div>
-      <p>{desc}</p>
+      {/* Description */}
+      <div
+        className={`${desc.join().length > 300 ? `text-[0.6rem] ` : "text-xs"}`}
+      >
+        <p className="">{desc}</p>
+      </div>
+      {/* Higher Levels */}
       <div className="mt-auto">
         {(higher_level || damage_at_character_level) && higher_level[0] && (
           <>
             <h4 className="font-semibold">At Higher Levels</h4>
-            <p>{higher_level && higher_level[0]}</p>
+            <p className="print:hidden">{higher_level && higher_level[0]}</p>
           </>
         )}
         {damage && (
-          <div className="flex border border-black w-fit">
+          <div className="flex border border-black w-fit text-[0.5rem] print:text-[0.50rem]">
             {damage_at_slot_level &&
               Object.entries(damage_at_slot_level).map(
                 ([key, index], ind, origin) => {
@@ -88,9 +96,9 @@ export default function SpellCard({ data, print, handleDelete }) {
                         ind != origin.length - 1 ? "border-r border-black" : ""
                       }
                     >
-                      <p className="text-center">{key}</p>
+                      <p className="text-center leading-snug">{key}</p>
                       <hr className="border-black" />
-                      <p className="px-[0.35rem] text-center font-semibold">
+                      <p className="px-[0.35rem] print:px-[0.2rem] text-center font-semibold">
                         {index}
                       </p>
                     </div>

@@ -20,16 +20,17 @@ export default function CollectionMenu() {
           {collections.current &&
             collections.array.map((collection, index) => {
               return (
-                <li
-                  key={collection.key}
-                  onClick={() => {
-                    setCurrentCollection(collection.key);
-                  }}
-                  className="relative group"
-                >
-                  <span className="uppercase">{collection.name}</span>
+                <li key={collection.key} className="relative group">
+                  <span
+                    className="uppercase"
+                    onClick={() => {
+                      setCurrentCollection(collection.key);
+                    }}
+                  >
+                    {collection.name}
+                  </span>
                   <button
-                    className="group-hover:flex hidden btn btn-accent btn-xs btn-circle absolute right-1 top-1.5 content-center"
+                    className="group-hover:flex hidden btn btn-accent btn-xs btn-circle hover:bg-accent-focus absolute right-1 top-1.5 content-center"
                     onClick={() => {
                       deleteCollection(collection.key);
                     }}
